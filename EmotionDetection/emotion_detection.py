@@ -14,7 +14,7 @@ def emotion_detector(text_to_analyze):
     # Make a POST request to the API with the payload and headers
     response = requests.post(url, json=myobj, headers=header)
 
-    # If the response status code is 200, extract  the response
+   # If the response status code is 200, extract  the response
     if response.status_code == 200:
         # Parse the response from the API
         formatted_response = json.loads(response.text)
@@ -26,6 +26,16 @@ def emotion_detector(text_to_analyze):
         print(first_item)
         dic["dominant_emotion"]= first_item[0]
         res= dic
+        
+    # If the response status code is 500, set response to None
+    elif response.status_code == 500:
+        res = None
+        
+    # For any other unexpected status codes, set response to None
+    else:
+        res = None
+        
 
-    # Return the response
+    # Return the response 
     return (res)
+
